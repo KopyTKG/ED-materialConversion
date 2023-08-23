@@ -1,0 +1,25 @@
+.btn {
+    padding: .5rem 1rem;
+    font-weight: map-get($map: $font-weights, $key: "medium");
+    margin: .5rem;
+    font-size: 1.2rem;
+    border-radius: .5rem;
+    background-color: transparent;
+    border: none;
+    color: transparent;
+    outline: none;
+    text-decoration: none;
+    @each $name, $color in $colors {
+        @include btn-style-gen($name, $color);
+    }
+}
+
+@each $name, $color in $type {
+    .btn-#{$name} { @include btn-primary($color)}
+    .btn-#{$name}-outline { @include btn-outline($color)}
+    .btn-#{$name}-dark { @include btn-secondary($color)}
+}
+
+.rounded {
+    border-radius: 50rem;
+}

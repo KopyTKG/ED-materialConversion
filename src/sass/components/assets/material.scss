@@ -1,0 +1,89 @@
+.mt-row {
+    .mt-cat {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        .title {
+            height: map-get($map: $font-sizes, $key: "md");
+            color: map-get($map: $eliteColors, $key: "lightorange");
+            font-size: map-get($map: $font-sizes, $key: "md");
+            font-weight: map-get($map: $font-weights, $key: "bolder");
+            white-space: nowrap;
+        }
+        .line {
+            width: 100%;
+            height: 1rem;
+            border-bottom: .5rem solid map-get($map: $eliteColors, $key: "darkorange");
+        }
+    }
+    .mt-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 2rem;
+        margin: 1rem 0;
+
+    }
+}
+
+.mt {
+    border: .25rem solid map-get($map: $eliteColors, $key: "darkorange");
+    color: map-get($map: $eliteColors, $key: "lightorange");
+    padding: .25rem .3rem;
+
+}
+
+.mt-grade {
+
+    height: 5rem;
+    width: 5rem;
+    background-color: map-get($map: $eliteColors, $key: "lightorange");
+}
+
+.mt-box {
+    width: 15rem;
+    height: 10rem;
+    display: grid;
+    grid-template-rows: 66% 34%;
+    align-items: center;
+    justify-items: center;
+    background-color: map-get($map: $eliteColors, $key: "darkerorange");
+}
+
+.mt-text {
+    width: 100%;
+    height: 100%;
+    background-color: map-get($map: $eliteColors, $key: "darkorange");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    font-size: map-get($map: $font-sizes, $key: "sd");
+    font-weight: map-get($map: $font-weights, $key: "bold");
+}
+
+.mt-active {
+    background-color: darken(map-get($map: $eliteColors, $key: "lightorange"), 10%);
+    color: black;
+    
+    & .mt-text {
+        background-color: map-get($map: $eliteColors, $key: "lightorange");
+    }
+    & .mt-grade {
+      background-color: black;  
+    }
+}
+
+.mt-modal {
+    background-color: rgba(map-get($map: $eliteColors, $key: "lightorange"), .65);
+    position: absolute;
+    margin-top: -10rem;
+    justify-content: center;
+    align-items: center;
+    & .mt-convert {
+      font-size: map-get($map: $font-sizes, $key: "xxl");  
+      color: black;
+      background: transparent;
+    }
+}

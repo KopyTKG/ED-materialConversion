@@ -1,0 +1,20 @@
+{
+    "categories": [
+        "Raw Material Category 1",
+        "Raw Material Category 2",
+        "Raw Material Category 3",
+        "Raw Material Category 4",
+        "Raw Material Category 5",
+        "Raw Material Category 6",
+        "Raw Material Category 7"
+    ],
+    "materials": [
+        ["Carbon", "Vanadium", "Niobium", "Yttrium"],
+        ["Phosphorus", "Chromium", "Molybdenum", "Technetium"],
+        ["Sulphur", "Manganese", "Cadmium", "Ruthenium"],
+        ["Iron", "Zinc", "Tin", "Selenium"],
+        ["Nickel", "Gernamium", "Tungsten", "Tellurium"],
+        ["Rhenium", "Arsenic", "Mercury", "Polonium"],
+        ["Lead", "Zinconium", "Boron", "Antimony"]
+    ]
+}

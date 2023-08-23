@@ -1,0 +1,46 @@
+{
+    "categories": [
+        "Chemical",
+        "Thermic",
+        "Heat",
+        "Conductive",
+        "Mechanical Components",
+        "Capacitors",
+        "Shielding",
+        "Composite",
+        "Crystals",
+        "Alloys"
+    ],
+    "materials": [
+        [
+            "Chemical Storage Units", "Chemical Processors", "Chemical Distillery", "Chemical Manipulators", "Pharmaceutical Isolators"
+        ],
+        [
+            "Tempered Alloys", "Heat Resistant Ceramics", "Precipitated Alloys", "Thermic Alloys", "Military Grade Alloys"
+        ],
+        [
+            "Heat Conduction Wiring", "Heat Dispersion Plate", "Heat Exchangers", "Heat Vanes", "Proto Heat Radiators"
+        ],
+        [
+            "Basic Conductors", "Conductive Components", "Conductive Ceramics", "Conductive Polymers", "Biotech Conductors"
+        ],
+        [
+            "Mechanical Scrap", "Mechanical Equipment", "Mechanical Components", "Configurable Components", "Improvised Components"
+        ],
+        [
+            "Grid Resistors", "Hybrid Capacitors", "Electrochemical Arrays", "Polymer Capacitors", "Military Supercapacitors"
+        ],
+        [
+            "Worn Shield Emitters", "Shield Emitters", "Shielding Sensors", "Compound Shielding", "Imperial Shielding"
+        ],
+        [
+            "Compact Composites", "Filament Composites", "High Density Composites", "Proprietary Composites", "Core Dynamics Composites"
+        ],
+        [
+            "Crystal Shards", "Flawed Focus Crystals", "Focus Crystals", "Refined Focus Crystals", "Exquisite Focus Crystals"
+        ],
+        [
+            "Salvaged Alloys", "Galvanising Alloys", "Phase Alloys", "Proto Light Alloys", "Proto Radiolic Alloys"
+        ]
+    ]
+}

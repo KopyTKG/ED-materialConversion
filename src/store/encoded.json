@@ -1,0 +1,30 @@
+{
+    "categories": [
+        "Emission Data",
+        "Wake Scans",
+        "Shield Data",
+        "Encryption Files",
+        "Data Archives",
+        "Encoded Firmware"
+    ],
+    "materials": [
+        [
+            "Exceptional Scrambled Emission Data", "Irregular Emission Data", "Unexpected Emission Data", "Decoded Emission Data", "Abnormal Compact Emissions Data"
+        ],
+        [
+            "Atypical Disrupted Wake Echoes", "Anomalous FSD Telemetry", "Strange Wake Solutions", "Eccentric Hyperspace Trajectories", "Datamined Wake Exceptions"
+        ],
+        [
+            "Distorted Shield Cycle Recordings", "Inconsistent Shield Soak Analysis", "Untypical Shield Scans", "Aberrant Shield Pattern Analysis", "Peculiar Shield Frequency Data"
+        ],
+        [
+            "Unusual Encrypted Files", "Tagged Encryption Codes", "Open Symmetric Keys", "Atypical Encryption Archives", "Adaptive Encryptors Capture"
+        ],
+        [
+            "Anomalous Bulk Scan Data", "Unidentified Scan Archives", "Classified Scan Databanks", "Divergent Scan Data", "Classified Scan Fragment"
+        ],
+        [
+            "Specialised Legacy Firmware", "Modified Consumer Firmware", "Cracked Industrial Firmware", "Security Firmware Patch", "Modified Embedded Firmware"
+        ]
+    ]
+}
