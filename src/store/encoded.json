@@ -26,5 +26,12 @@
         [
             "Specialised Legacy Firmware", "Modified Consumer Firmware", "Cracked Industrial Firmware", "Security Firmware Patch", "Modified Embedded Firmware"
         ]
+    ],
+    "max":[
+        300,
+        250,
+        200,
+        150,
+        100
     ]
 }

@@ -38,3 +38,7 @@ header {
   text-decoration: underline;
   text-decoration-color: map-get($map: $colors, $key: "darkwhite");
 }
+
+.number {
+  font-family: 'Montserrat', sans-serif;
+}
