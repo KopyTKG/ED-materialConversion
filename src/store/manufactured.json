@@ -42,5 +42,12 @@
         [
             "Salvaged Alloys", "Galvanising Alloys", "Phase Alloys", "Proto Light Alloys", "Proto Radiolic Alloys"
         ]
+    ], 
+    "max":[
+        300,
+        250,
+        200,
+        150,
+        100
     ]
 }

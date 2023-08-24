@@ -16,5 +16,11 @@
         ["Nickel", "Gernamium", "Tungsten", "Tellurium"],
         ["Rhenium", "Arsenic", "Mercury", "Polonium"],
         ["Lead", "Zinconium", "Boron", "Antimony"]
+    ], 
+    "max":[
+        300,
+        250,
+        200,
+        150
     ]
 }

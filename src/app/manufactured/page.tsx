@@ -1,32 +1,13 @@
-import Slot from "@/components/material.module"
-import Raw from "../../store/manufactured.json"
+import Manufactured from "../../store/manufactured.json"
+import MaterialDisplay from "@/components/material.display"
 
 export default function ManufacturedMaterials() {
-    const width = Raw.materials[0].length;
-    const height = Raw.materials.length
-
     return (
         <>
             <header>
                 Manufactured Materials Convertion
             </header>
-            <div>
-                {Raw.materials.map((row, xId) => (
-                    <div className="mt-row">
-                        <div className="mt-cat">
-                            <div className="title">{Raw.categories[xId]}</div>
-                            <div className="line"/>
-                        </div>
-                        <div className="mt-content">
-                        {row.map((col, yId) => (
-                            <Slot svg={yId} id={xId+""+yId} w={width} h={height}>
-                                {col}
-                            </Slot>
-                        ))}
-                        </div>
-                    </div>
-                ))}
-            </div>
+            <MaterialDisplay Mat={Manufactured}/>
         </>
     )
 }
