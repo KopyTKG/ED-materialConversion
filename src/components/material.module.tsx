@@ -1,76 +1,96 @@
 'use client'
+import { useState } from "react"
+import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript"
+
+function Element(id: string, content: string, display: string, outline: string) {
+    let modalId = id+"-modal"
+    let convertId = id+"-convert"
+    
+    let modal :any = document.getElementById(modalId)
+    let convert: any = document.getElementById(convertId)
+    let element :any = document.getElementById(id);
+
+    convert.innerHTML = content;
+    modal.style.display = display;
+    element.style.outline = outline;
+}
+
+function LoopElements(width: number, height: number, content: string, display: string, outline: string) {
+    for (let x = 0; x < height; x++) {
+        for (let y = 0; y < width; y++) {
+            let newId = x+""+y;
+            Element(newId, content, display, outline)
+        }
+    }
+}
+
+function GenerateContent(ratio: number, amount: number): string {
+    return `${ratio} -> <span style='color: blue;background-color: transparent';'>${amount}</span> `
+}
+
 
 export default function Slot(props: any) {
+    const [selected, setAmount] = useState(1)
+
     const setContent = (id: string) => {
         const width = props.w;
         const height = props.h
-        let current : any = document.getElementById(id);
+        // Clean board
+        LoopElements(width, height, "", "none", "none")
 
-        for (let i = 0; i < height; i++) {
-            for (let j = 0; j < width; j++) {
-                let newId = i+""+j;
-                let modalId = newId+"-modal"
-                let convertId = newId+"-convert"
-                let element_modal :any = document.getElementById(modalId)
-                let element_convert: any = document.getElementById(convertId)
-                let element :any = document.getElementById(newId);
-                element_convert.innerHTML = "";
-                element_modal.style.display = "none";
-                element.style.outline = "none";
-            }
-        }
+        // Clicked Element
+        let outline: string = ".5rem solid blue";
+        let display: string = "flex"
+        Element(id, "", "none", outline)
+        
+        // Calculations
         for (let x = 0; x < height; x++) {
-            for (let y = 0; y < width; y++) {
-                
-                current.style.outline = ".5rem solid blue";
-
+            for (let y = 0; y < width; y++) {                
                 let newId = x+""+y
-                let modalId = newId+"-modal"
-                let convertId = newId+"-convert"
+                if (id === newId) continue;
+
                 let xId = parseInt(id[0]);
                 let yId = parseInt(id[1]);
-                let ratio = 0
-                let content = ""
+                let ratio = 1
+                let amount = 1
+                let side :string = ""
 
                 if (x == xId) {
-                    console.log("here")
                     if (y < yId ) {
-                        ratio = Math.pow(6, yId-y)
-                        content = `${ratio} -> <span style='color: blue;background-color: transparent';'>1</span> ` 
+                        ratio = (Math.pow(6, yId-y)) * selected
+                        amount = selected
 
                     }
                     if (y > yId) {
-                        ratio = Math.pow(3, y - yId)
-                        content = `1 -> <span style='color: blue;background-color: transparent';'>${ratio}</span> ` 
-                    }
-                }
-                else if (x != xId) {
-                    if (y == yId ) {
-                        ratio = 6
-                        content = `${ratio} -> <span style='color: blue;background-color: transparent';'>1</span>`
-
-                    }
-                    if (y < yId) {
-                        ratio = Math.pow(6, (yId-(y-1)))
-                        content = `${ratio} -> <span style='color: blue;background-color: transparent';'>1</span>`
-                    }
-                    if (y > yId) {
-                        ratio = Math.pow(3, (y-1) - yId )
-                        content = `2-> <span style='color: blue;background-color: transparent;'>${ratio}</span> `
+                        amount = Math.pow(3, y - yId)
+                        let tmp = amount
+                        while (amount < selected) {
+                            amount += tmp
+                            ratio += 1 
+                        } 
 
                     }
                 }
-                
-                    
-
-                if (id === newId) continue;
                 else {
                     
-                    let element_convert: any = document.getElementById(convertId);
-                    element_convert.innerHTML = content;
-                    let element_modal :any = document.getElementById(modalId);
-                    element_modal.style.display = "flex";
+                    if (y < yId) {
+                        ratio = (Math.pow(6, (yId-(y-1)))) * selected
+                        amount = selected
+
+                    }
+                    else if (y > yId) {
+                        amount = Math.pow(3, (y-1) - yId ) * selected
+                        ratio = 2 * selected
+
+
+                    } else {
+                        ratio = 6 * selected
+                        amount = selected
+                    }
                 }
+                let content = GenerateContent(ratio, amount)
+                Element(newId, content, display, "none")
+                
             }
         }
     }
