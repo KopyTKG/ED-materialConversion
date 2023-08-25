@@ -1,3 +1,10 @@
+import Navbar from "@/components/navbar.module"
+
+export const metadata = {
+  title: 'EDMC: raw materials',
+  description: 'Elite Dangerous Materials Convertion',
+}
+
 export default function SubLayout({
   children,
 }: {
@@ -5,23 +12,7 @@ export default function SubLayout({
 }) {
   return (
     <>
-        <nav>
-          <a href="/">
-            <div className='btn btn-secondary-outline'>
-              Home
-            </div>
-          </a>
-          <a href="/manufactured">
-            <div className='btn btn-secondary-outline'>
-            Manufactured
-            </div>
-          </a>
-          <a href="/encoded">
-            <div className='btn btn-secondary-outline'>
-              Encoded
-            </div>
-          </a>
-        </nav>
+        <Navbar/>
         <main>
           {children}
         </main>

@@ -1,8 +1,52 @@
-.Page-home {
-    height: 95vh;
+.main {
     display: flex;
+    height: 100vh;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
-    flex-direction: row;
-    gap: 3rem;
+    gap: 5rem;
+
+    & .main-title {
+        font-size: map-get($map: $font-sizes, $key: "xxl");
+        color: map-get($map: $eliteColors, $key: "lightorange" );
+        background-color: transparent;
+        font-weight: map-get($map: $font-weights, $key: "bold");
+        text-underline-offset: .3rem;
+        text-decoration: solid underline;
+        text-decoration-thickness: .5rem;
+    }
+
+
+    & .main-menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 100%;
+        height: max-content;
+        background-color: transparent;
+        & .menu-btn {
+            width: 20rem;
+            height: 30rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            white-space: pre-wrap;
+            
+            
+            @include FallbackBorder($radius: 0.5rem );
+            transition: .45s all ease;
+            font-size: map-get($map: $font-sizes, $key: "lg");
+            background-color: map-get($map: $colors, $key: "darkblack");
+
+            &:hover {
+                margin-top: -.8rem;
+                font-size: map-get($map: $font-sizes, $key: "xl");
+                background-color: map-get($map: $eliteColors, $key: "darkerorange");
+                color: map-get($map: $eliteColors, $key: "lightorange" );
+                border-color: map-get($map: $eliteColors, $key: "lightorange" );
+
+            }
+        }
+    }
 }

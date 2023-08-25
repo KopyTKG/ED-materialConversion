@@ -1,6 +1,12 @@
+export default function Tooltip(props: any) {
 
-export default function Tooltip() {
     return (
-        <div>Tooltip</div>
+        <div className="tooltip">
+            {props.children}
+            <div className={"tooltip-modal "} id={props.props.id+"-tooltip"}>
+                <div className="tooltip-title">
+                </div>
+            </div>
+        </div>
     )
 }

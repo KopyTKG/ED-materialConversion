@@ -1,23 +1,23 @@
 
 export default function Home() {
   return (
-    <main>
-      <h1>Elite Dangerous Material Convertion Chart</h1>
-      <a href="/raw">
-        <div className="btn btn-secondary-outline">
-          Raw Materials
-        </div>
-      </a>
-      <a href="/manufactured">
-        <div className="btn btn-secondary-outline">
-          Manufactured Materials
-        </div>
-      </a>
-      <a href="/encoded">
-        <div className="btn btn-secondary-outline">
-          Encoded Materials
-        </div>
-      </a>
-    </main>
+    <div className="main">
+      <div className="main-title">
+        Elite Dangerous:  Material Convertion (EDMC)
+      </div>
+
+      <div className="main-menu">
+        <a href="/raw" className="menu-btn">
+            Raw Materials
+          
+        </a>
+        <a href="/manufactured" className="menu-btn">
+            Manufactured Materials
+        </a>
+        <a href="/encoded" className="menu-btn">
+            Encoded<br/>Materials
+        </a>
+      </div>
+    </div>
   )
 }

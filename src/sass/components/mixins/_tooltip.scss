@@ -1,0 +1,12 @@
+
+@each $name, $color in $type {
+    
+    .tt-#{$name} {
+        background-color: $color;
+        .tooltip-title::before {
+            content: '#{map-get($map: $tooltips, $key: $name)}';
+    
+        }
+    }
+}
+

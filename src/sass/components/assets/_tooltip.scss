@@ -1,0 +1,47 @@
+.tooltip {
+    background-color: transparent;
+    width: min-content;
+    height: min-content;
+    transition: 150ms linear;
+    transition-delay: 1s, 50ms;
+    transition-property: background-color;
+
+    .tooltip-modal {
+        position: absolute;
+        color: black;
+        margin-top: .25rem;
+
+        border: 1px solid black;
+        border-radius: .5rem;
+        padding: 1rem 2rem;
+        width: 15rem;
+        z-index: -1;
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;        
+        transition: .25s all ease;
+        transition-delay: .25s;
+        &:after {
+
+        }
+
+        .tooltip-title {
+            font-size: map-get($map: $font-sizes, $key: "sd");
+            background-color: transparent;
+            font-weight: map-get($map: $font-weights, $key: "regular");
+        }
+    }
+
+    &:hover {
+        .tooltip-modal {
+            transition: .25s all ease;
+            transition-delay: .75s;
+            z-index: 3;
+            opacity: 1;
+        }
+        
+
+    }
+
+}
