@@ -37,9 +37,12 @@ $type: (
 );
 
 $tooltips: (
-    "primary"   : (map-get($colors, "darkblue"), map-get($colors, "lightblue")),
+    "primary"   : "Selected material",    
+    "secondary" : "No material has been selected", 
+    "success"   : "Convertion can be done", 
+    "warning"   : "Internal error",
+    "error"     : "Maximum amount per material exceeded"
 );
-
 /* Font sizes */
 $font-sizes : (
     "xs": 0.75rem,

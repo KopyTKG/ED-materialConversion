@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from "react"
 import Slot from "@/components/material.module"
-import Infotip from "./infotip.module"
 
 import Common from "@/store/common.json"
 
@@ -14,21 +13,32 @@ function Element(id: string, content: string, display: string, outline: string, 
         let modal :any = document.getElementById(modalId)
         let convert: any = document.getElementById(convertId)
         let element :any = document.getElementById(id);
+        let tooltip :any = document.getElementById(id+"-tooltip")
         
         modal.style.display = display;
         convert.innerHTML = content;
         element.style.outline = outline;
         if (type == "blue") {
             modal.classList.add("mt-blue")
+            tooltip.classList.remove("tt-secondary")
+            tooltip.classList.add("tt-primary")
         } else if (type == "orange") {
             modal.classList.add("mt-orange")
+            tooltip.classList.remove("tt-secondary")
+            tooltip.classList.add("tt-success")
         } else if (type == "gray") {
             modal.classList.add("mt-gray")
+            tooltip.classList.remove("tt-secondary")
+            tooltip.classList.add("tt-error")
         } else {
             try {
                 modal.classList.remove("mt-blue")
                 modal.classList.remove("mt-orange")
                 modal.classList.remove("mt-gray")
+                tooltip.classList.remove("tt-primary")
+                tooltip.classList.remove("tt-success")
+                tooltip.classList.remove("tt-error")
+                tooltip.classList.add("tt-secondary")
             } catch (error) {
                 console.log(error)
             }
@@ -47,8 +57,8 @@ function LoopElements(width: number, height: number, content: string, display: s
     }
 }
 
-function GenerateContent(ratio: number, amount: number): string {
-    return `${ratio} -> <span style='color: blue;background-color: transparent';'>${amount}</span>`
+function GenerateContent(ratio: number, amount: number, id: string): string {
+    return `${ratio} -> <span style='color: blue;background-color: transparent';' id=${id+"-highlight"}>${amount}</span>`
 }
 
 function getRandomItem(arr: any): string {
@@ -132,7 +142,7 @@ export default function MaterialDisplay(props: any) {
                             am = amount
                         }
                     }
-                    let content = GenerateContent(ratio, am)
+                    let content = GenerateContent(ratio, am, newId)
                     let max: any = document.getElementById(newId+"-max")?.innerHTML
                     let color = "orange"
                     if (ratio > max) color = "gray"
@@ -158,8 +168,6 @@ export default function MaterialDisplay(props: any) {
     
     useEffect(() => {
         setContent() 
-        console.log(current)
-
     }, [amount, current])
 
     return (
@@ -172,21 +180,22 @@ export default function MaterialDisplay(props: any) {
                         </div>
                         <div className="mt-content">
                         {row.map((col: any, yId: any) => (
-                            <Slot 
-                                svg={yId} 
-                                id={xId+""+yId} 
-                                w={width} 
-                                h={height} 
-                                max={props.Mat.max[yId]}
-                                amount={amount}
-                                setAmount={setAmount}
-                                current={current}
-                                setCurrent={setCurrent}
-                                grade={Common.grades[yId]}
-                                matId={props.Mat.ids[xId][yId]}
-                            >
-                                {col}
-                            </Slot>
+                                <Slot 
+                                    svg={yId} 
+                                    id={xId+""+yId} 
+                                    w={width} 
+                                    h={height} 
+                                    max={props.Mat.max[yId]}
+                                    amount={amount}
+                                    setAmount={setAmount}
+                                    current={current}
+                                    setCurrent={setCurrent}
+                                    grade={Common.grades[yId]}
+                                    matId={props.Mat.ids[xId][yId]}
+                                >
+                                    {col}
+                                </Slot>
+
                         ))}
                         </div>
                     </div>
