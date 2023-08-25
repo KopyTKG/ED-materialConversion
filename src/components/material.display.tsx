@@ -1,6 +1,9 @@
 'use client'
 import { useState, useEffect, useRef } from "react"
 import Slot from "@/components/material.module"
+import Infotip from "./infotip.module"
+
+import Common from "@/store/common.json"
 
 
 function Element(id: string, content: string, display: string, outline: string, type: string) {
@@ -46,6 +49,14 @@ function LoopElements(width: number, height: number, content: string, display: s
 
 function GenerateContent(ratio: number, amount: number): string {
     return `${ratio} -> <span style='color: blue;background-color: transparent';'>${amount}</span>`
+}
+
+function getRandomItem(arr: any): string {
+    // get random index value
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    // get random item
+    const item = arr[randomIndex];
+    return item;
 }
 
 export default function MaterialDisplay(props: any) {
@@ -144,6 +155,7 @@ export default function MaterialDisplay(props: any) {
         }
     }
 
+    
     useEffect(() => {
         setContent() 
         console.log(current)
@@ -170,6 +182,8 @@ export default function MaterialDisplay(props: any) {
                                 setAmount={setAmount}
                                 current={current}
                                 setCurrent={setCurrent}
+                                grade={Common.grades[yId]}
+                                matId={props.Mat.ids[xId][yId]}
                             >
                                 {col}
                             </Slot>

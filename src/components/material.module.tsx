@@ -1,3 +1,5 @@
+import Infotip from "./infotip.module"
+
 export default function Slot(props: any) {
     const selected = props.amount
     
@@ -34,8 +36,13 @@ export default function Slot(props: any) {
     return (
         <div className="mt" id={props.id} onClick={event => Click(event)}>
             <div className="mt-box" id={props.id+"-box"}>
-                <div className="mt-max number">
-                    <span id={props.id+"-max"}>{props.max}</span>
+                <div className="mt-top" id={props.id+"-top"}>
+                    <div className="mt-max number">
+                        <span id={props.id+"-max"}>{props.max}</span>
+                    </div>
+                    <Infotip title={props.children} grade={props.grade} max={props.max} id={props.matId}>
+                        <div className="mt-info"/>
+                    </Infotip>
                 </div>
                 <div className="mt-grade"  id={props.id+"-grade"}
                 style={
