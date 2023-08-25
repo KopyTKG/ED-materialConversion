@@ -1,18 +1,63 @@
 $HomeSVG: url(/home.svg);
+$RawSVG: url(/raw.svg);
+$ManufacturedSVG: url(/manufactured.svg);
+$EncodedSVG: url(/encoded.svg);
 
-nav {
+@mixin SVG($path, $name) {
+    & .navbar-#{$name} {
+        width: 1.5rem;
+        aspect-ratio: 1/1;
+        margin-right:.3rem;
+        transition: .45s all ease;
+        mask: $path no-repeat center / contain;
+        -webkit-mask: $path no-repeat center / contain;
+        background-color: map-get($map: $eliteColors, $key: "lightorange");       
+    }
+}
+
+@mixin SVG-hover($name) {
+    & .navbar-#{$name} {
+        width: 1.6rem;
+        background-color: map-get($map: $colors, $key: "darkwhite");
+    }
+}
+
+.navbar {
     background-color: transparent;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     padding: 0;
-    margin: .25rem 1rem;
+    margin: 1rem 2rem;
     gap: 2rem;
-    .home {
-        width: 2rem;
+    & .navbar-brand {
+        min-width: 2rem;
         height: 2rem;
-        mask: $HomeSVG no-repeat center / contain;
-        -webkit-mask: $HomeSVG no-repeat center / contain;
-        background-color: map-get($map: $colors, $key: "darkwhite");
+        background-color: map-get($map: $colors, $key: "darkblack");
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: .2rem .6rem;
+        @include FallbackBorder($radius: 0.5rem );
+        transition: .45s all ease;
+
+        @include SVG($HomeSVG, "home");
+        @include SVG($RawSVG, "raw");
+        @include SVG($ManufacturedSVG, "manufactured");
+        @include SVG($EncodedSVG, "encoded");
+
+        &:hover {
+            margin-bottom: -1rem;
+            background-color: map-get($map: $eliteColors, $key: "darkerorange");
+            color: map-get($map: $eliteColors, $key: "lightorange" );
+            border-color: map-get($map: $eliteColors, $key: "lightorange" );
+           
+            @include SVG-hover("home");
+            @include SVG-hover("raw");
+            @include SVG-hover("manufactured");
+            @include SVG-hover("encoded");
+        }
     }
+    
 }
+
