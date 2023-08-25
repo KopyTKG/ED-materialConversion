@@ -36,6 +36,10 @@ $type: (
     "error"     : map-get($colors, "darkred")
 );
 
+$tooltips: (
+    "primary"   : (map-get($colors, "darkblue"), map-get($colors, "lightblue")),
+);
+
 /* Font sizes */
 $font-sizes : (
     "xs": 0.75rem,
