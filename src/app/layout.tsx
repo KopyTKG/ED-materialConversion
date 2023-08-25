@@ -15,6 +15,14 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
+        <footer>
+            <a className='link' href='https://github.com/KopyTKG/ED-materialConvertion' target='_blank'>
+              GitHub Repository
+            </a>
+            <a className='link' href='https://github.com/KopyTKG/' target='_blank'>
+              Maintainer: <b>KopyTKG</b>
+            </a>
+        </footer>
       </body>
     </html>
   )
