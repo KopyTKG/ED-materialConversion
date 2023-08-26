@@ -6,7 +6,7 @@ export default function RawMaterials() {
     return (
         <>
             <header>
-                Raw Materials Convertion
+                Raw Materials Conversion
             </header>
             <MaterialDisplay Mat={Raw}/>
         </>

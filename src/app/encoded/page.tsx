@@ -5,7 +5,7 @@ export default function EncodedMaterials() {
     return (
         <>
             <header>
-                Encoded Materials Convertion
+                Encoded Materials Conversion
             </header>
             <MaterialDisplay Mat={Encoded}/>
         </>
