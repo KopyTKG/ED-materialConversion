@@ -111,6 +111,9 @@
     
     .mt-button {
         background-color: transparent;
+        -webkit-user-select: none;
+        -ms-user-select: none; 
+        user-select: none;
     }
     .mt-convert {
       font-size: map-get($map: $font-sizes, $key: "xxl");  
@@ -118,6 +121,9 @@
       background: transparent;
       justify-self: center;
       align-self: center;
+      -webkit-user-select: none; /* Safari */
+      -ms-user-select: none; /* IE 10 and IE 11 */
+      user-select: none;
     }
 }
 .mt-orange {
