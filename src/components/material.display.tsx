@@ -104,17 +104,22 @@ export default function MaterialDisplay(props: any) {
 
                     let newId = x+""+y
                     if (current == newId) continue;
+                    // xId -> id={x-}
                     let xId = parseInt(current[0]);
+                    // yId -> id={-y}
                     let yId = parseInt(current[1]);
                     let ratio = 1
                     let am = 1
 
+                    // Same row of element
                     if (x == xId) {
+                        // Element before selected one
                         if (y < yId ) {
                             ratio = (Math.pow(6, yId-y)) * amount
                             am = amount
 
                         }
+                        // Element after selected one
                         if (y > yId) {
                             am = Math.pow(3, y - yId)
                             let tmp = am
@@ -125,19 +130,31 @@ export default function MaterialDisplay(props: any) {
 
                         }
                     }
+                    // Other rows
                     else {
 
+                        // Element before selected one
                         if (y < yId) {
                             ratio = (Math.pow(6, (yId-(y-1)))) * amount
                             am = amount
 
                         }
+                        // Element after selected one
                         else if (y > yId) {
-                            am = Math.pow(3, (y-1) - yId ) * amount
-                            ratio = 2 * amount
+                            
+                            ratio = 2
+                            am = Math.pow(3, (y-1) - yId)
+                            let r_tmp = ratio
+                            let a_tmp = am
+                            while (am < amount) {
+                                am += a_tmp
+                                ratio += r_tmp
+                            }
 
 
-                        } else {
+                        } 
+                        // Element in the same column
+                        else {
                             ratio = 6 * amount
                             am = amount
                         }
