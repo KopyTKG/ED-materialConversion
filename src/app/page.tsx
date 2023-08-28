@@ -3,7 +3,7 @@ export default function Home() {
   return (
     <div className="main">
       <div className="main-title">
-        Elite Dangerous:  Material Convertion (EDMC)
+        Elite Dangerous:  Material Conversion (EDMC)
       </div>
 
       <div className="main-menu">

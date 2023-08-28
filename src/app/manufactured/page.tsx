@@ -5,7 +5,7 @@ export default function ManufacturedMaterials() {
     return (
         <>
             <header>
-                Manufactured Materials Convertion
+                Manufactured Materials Conversion
             </header>
             <MaterialDisplay Mat={Manufactured}/>
         </>
