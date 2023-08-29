@@ -1,7 +1,3 @@
-* {
-  background-color: #383838; 
-}
-
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -9,8 +5,10 @@ body {
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #383838; 
     color: map-get($map: $colors, $key: "darkwhite");
+    background: url("/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   
 iframe {
@@ -49,7 +47,6 @@ header {
   color: map-get($map: $colors, $key: "darkblue");
   text-decoration: dashed underline;
   text-underline-offset: .2rem;
-  background-color: transparent;
   transition: .45s all ease;
   transition-property: margin, color;
   &:hover {

@@ -4,6 +4,19 @@ import Slot from "@/components/material.module"
 import Common from "@/store/common.json"
 
 
+// Classes
+const tooltipClasses = [
+    "tt-primary",
+    "tt-success",
+    "tt-error",
+    "tt-secondary"
+]
+const modalClasses = [
+    "mt-blue",
+    "mt-orange",
+    "mt-gray",
+]
+
 function Element(id: string, content: string, display: string, outline: string, type: string) {
     // Ids creation
     let modalId = id+"-modal"
@@ -15,11 +28,19 @@ function Element(id: string, content: string, display: string, outline: string, 
     let modal :any = document.getElementById(modalId)
     let convert: any = document.getElementById(convertId)
     let tooltip :any = document.getElementById(tooltipId)
-    
+
+
     // Modifying elements
     modal.style.display = display;
     convert.innerHTML = content;
     element.style.outline = outline;
+
+    
+
+    let allClasses = [
+        ...tooltipClasses,
+        ...modalClasses
+    ]
 
     // Class buffers
     let Adder : string = ""
@@ -28,33 +49,29 @@ function Element(id: string, content: string, display: string, outline: string, 
 
     // Setting classes
     if (type == "blue") {
-        Adder = "mt-blue"
-        Remover = "tt-secondary"
-        TT_Adder = "tt-primary"
+        Adder = modalClasses[0]
+        TT_Adder = tooltipClasses[0]
     }
 
     if (type == "orange") {
-        Adder = "mt-orange"
-        Remover = "tt-secondary"
-        TT_Adder = "tt-success"
+        Adder = modalClasses[1]
+        TT_Adder = tooltipClasses[1]
     }
 
     if (type == "gray") {
-        Adder = "mt-gray"
-        Remover = "tt-secondary"
-        TT_Adder = "tt-error"
+        Adder = modalClasses[2]
+        TT_Adder = tooltipClasses[2]
     }
     
     // Clean up
     if (Adder == "" && Remover == "" && TT_Adder == "") {
         try {
-            modal.classList.remove("mt-blue")
-            modal.classList.remove("mt-orange")
-            modal.classList.remove("mt-gray")
-            tooltip.classList.remove("tt-primary")
-            tooltip.classList.remove("tt-success")
-            tooltip.classList.remove("tt-error")
-            tooltip.classList.add("tt-secondary")
+            [modal, tooltip].forEach(entity => {
+                allClasses.forEach(className => {
+                        entity.classList.remove(className)
+                    })
+            })
+
         } catch (error) {
             console.log(error)
         }
@@ -63,16 +80,15 @@ function Element(id: string, content: string, display: string, outline: string, 
 
     // Applying classes
     modal.classList.add(Adder)
-    tooltip.classList.remove(Remover)
     tooltip.classList.add(TT_Adder)
     return null
 
 }
 
-function GenerateIds(width: number, height: number) {
+function GenerateIds(size: number[]): string[] {
     let ids: string[] = []
-    for (let x = 0; x < height; x++) {
-        for (let y = 0; y < width; y++) {
+    for (let x = 0; x < size[0]; x++) {
+        for (let y = 0; y < size[1]; y++) {
             ids.push(x+""+y)
         }
     }
@@ -97,9 +113,9 @@ export default function MaterialDisplay(props: any) {
     const [amount, setAmount] = useState(1)
     const [current, setCurrent] = useState("")
     const BG = useRef<HTMLDivElement>(null)
-    const width = props.Mat.materials[0].length;
-    const height = props.Mat.materials.length
-    const IDS = GenerateIds(width, height)
+    const Indexies: number[] = [props.Mat.materials.length, props.Mat.materials[0].length];
+    const IDS = GenerateIds(Indexies)
+    console.log(IDS)
 
     const setContent = () => {
         if (current == "") return null;
@@ -160,7 +176,7 @@ export default function MaterialDisplay(props: any) {
             // Other rows
             else {
                 // Element before selected one
-                if (y < yId) {
+                if (y <= yId) {
                     need = (Math.pow(base, power+1)) * amount
                     get = amount
                 }
@@ -173,11 +189,6 @@ export default function MaterialDisplay(props: any) {
                         need += 2
                     }
                 } 
-                // Element in the same column
-                else {
-                    need = base * amount
-                    get = amount
-                }
             }
             
             let content = GenerateContent(need, get, newId)
@@ -210,19 +221,21 @@ export default function MaterialDisplay(props: any) {
 
     return (
         <div ref={BG} onClick={Clear} className="mt-container">
-                {props.Mat.materials.map((row: any, xId: any) => (
-                    <div className="mt-row">
+                {props.Mat.materials.map((row: any, xId: any, key: any) => (
+                    <div className="mt-row"
+                    key={key+""+xId+"-"+Date.now()}
+                    >
                         <div className="mt-cat">
                             <div className="title">{props.Mat.categories[xId]}</div>
                             <div className="line"/>
                         </div>
                         <div className="mt-content">
-                        {row.map((col: any, yId: any) => (
+                        {row.map((col: any, yId: any, key2: any) => (
                                 <Slot 
                                     svg={yId} 
                                     id={xId+""+yId} 
-                                    w={width} 
-                                    h={height} 
+                                    w={Indexies[0]} 
+                                    h={Indexies[1]} 
                                     max={props.Mat.max[yId]}
                                     amount={amount}
                                     setAmount={setAmount}
@@ -230,6 +243,7 @@ export default function MaterialDisplay(props: any) {
                                     setCurrent={setCurrent}
                                     grade={Common.grades[yId]}
                                     matId={props.Mat.ids[xId][yId]}
+                                    key={key2+""+yId+"-"+Date.now()}
                                 >
                                     {col}
                                 </Slot>
