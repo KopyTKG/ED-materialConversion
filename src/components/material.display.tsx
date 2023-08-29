@@ -115,7 +115,6 @@ export default function MaterialDisplay(props: any) {
     const BG = useRef<HTMLDivElement>(null)
     const Indexies: number[] = [props.Mat.materials.length, props.Mat.materials[0].length];
     const IDS = GenerateIds(Indexies)
-    console.log(IDS)
 
     const setContent = () => {
         if (current == "") return null;
