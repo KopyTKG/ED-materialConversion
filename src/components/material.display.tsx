@@ -1,173 +1,204 @@
 'use client'
 import { useState, useEffect, useRef } from "react"
 import Slot from "@/components/material.module"
-
 import Common from "@/store/common.json"
 
 
+// Classes
+const tooltipClasses = [
+    "tt-primary",
+    "tt-success",
+    "tt-error",
+    "tt-secondary"
+]
+const modalClasses = [
+    "mt-blue",
+    "mt-orange",
+    "mt-gray",
+]
+
 function Element(id: string, content: string, display: string, outline: string, type: string) {
-    try {
-        let modalId = id+"-modal"
-        let convertId = id+"-convert"
-        
-        let modal :any = document.getElementById(modalId)
-        let convert: any = document.getElementById(convertId)
-        let element :any = document.getElementById(id);
-        let tooltip :any = document.getElementById(id+"-tooltip")
-        
-        modal.style.display = display;
-        convert.innerHTML = content;
-        element.style.outline = outline;
-        if (type == "blue") {
-            modal.classList.add("mt-blue")
-            tooltip.classList.remove("tt-secondary")
-            tooltip.classList.add("tt-primary")
-        } else if (type == "orange") {
-            modal.classList.add("mt-orange")
-            tooltip.classList.remove("tt-secondary")
-            tooltip.classList.add("tt-success")
-        } else if (type == "gray") {
-            modal.classList.add("mt-gray")
-            tooltip.classList.remove("tt-secondary")
-            tooltip.classList.add("tt-error")
-        } else {
-            try {
-                modal.classList.remove("mt-blue")
-                modal.classList.remove("mt-orange")
-                modal.classList.remove("mt-gray")
-                tooltip.classList.remove("tt-primary")
-                tooltip.classList.remove("tt-success")
-                tooltip.classList.remove("tt-error")
-                tooltip.classList.add("tt-secondary")
-            } catch (error) {
-                console.log(error)
-            }
-        }
-    } catch (error) {
-        console.log(error)
+    // Ids creation
+    let modalId = id+"-modal"
+    let convertId = id+"-convert"
+    let tooltipId = id+"-tooltip"
+
+    // Selecting elements to be modified
+    let element :any = document.getElementById(id);
+    let modal :any = document.getElementById(modalId)
+    let convert: any = document.getElementById(convertId)
+    let tooltip :any = document.getElementById(tooltipId)
+
+
+    // Modifying elements
+    modal.style.display = display;
+    convert.innerHTML = content;
+    element.style.outline = outline;
+
+    
+
+    let allClasses = [
+        ...tooltipClasses,
+        ...modalClasses
+    ]
+
+    // Class buffers
+    let Adder : string = ""
+    let Remover : string = ""
+    let TT_Adder : string = ""
+
+    // Setting classes
+    if (type == "blue") {
+        Adder = modalClasses[0]
+        TT_Adder = tooltipClasses[0]
     }
+
+    if (type == "orange") {
+        Adder = modalClasses[1]
+        TT_Adder = tooltipClasses[1]
+    }
+
+    if (type == "gray") {
+        Adder = modalClasses[2]
+        TT_Adder = tooltipClasses[2]
+    }
+    
+    // Clean up
+    if (Adder == "" && Remover == "" && TT_Adder == "") {
+        try {
+            [modal, tooltip].forEach(entity => {
+                allClasses.forEach(className => {
+                        entity.classList.remove(className)
+                    })
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+        return null
+    }
+
+    // Applying classes
+    modal.classList.add(Adder)
+    tooltip.classList.add(TT_Adder)
+    return null
+
 }
 
-function LoopElements(width: number, height: number, content: string, display: string, outline: string) {
-    for (let x = 0; x < height; x++) {
-        for (let y = 0; y < width; y++) {
-            let newId = x+""+y;
-            Element(newId, content, display, outline, "")
+function GenerateIds(size: number[]): string[] {
+    let ids: string[] = []
+    for (let x = 0; x < size[0]; x++) {
+        for (let y = 0; y < size[1]; y++) {
+            ids.push(x+""+y)
         }
     }
+    return ids
+}
+
+function CleanBoard(ids: string[]) {
+    ids.forEach(id  => {
+        Element(id, "", "none", "none", "")
+    });
 }
 
 function GenerateContent(ratio: number, amount: number, id: string): string {
     return `${ratio} -> <span style='color: blue;background-color: transparent';' id=${id+"-highlight"}>${amount}</span>`
 }
 
-function getRandomItem(arr: any): string {
-    // get random index value
-    const randomIndex = Math.floor(Math.random() * arr.length);
-    // get random item
-    const item = arr[randomIndex];
-    return item;
-}
+
+
+
 
 export default function MaterialDisplay(props: any) {
     const [amount, setAmount] = useState(1)
     const [current, setCurrent] = useState("")
     const BG = useRef<HTMLDivElement>(null)
-
-    const width = props.Mat.materials[0].length;
-    const height = props.Mat.materials.length
+    const Indexies: number[] = [props.Mat.materials.length, props.Mat.materials[0].length];
+    const IDS = GenerateIds(Indexies)
 
     const setContent = () => {
-        if (current == "" || current == "999"){
-            // Clean board
-            LoopElements(width, height, "", "none", "none")
-        }
-        else {
-            // Clean board
-            LoopElements(width, height, "", "none", "none")
+        if (current == "") return null;
+        CleanBoard(IDS);
+        
+        
+        // Setting for selected element
+        let outline: string = ".5rem solid blue";
+        let display: string = "grid"
+        Element(current, amount.toString(), display, outline, "blue")
+
+        //Set display for minus button
+        let minus : any = document.getElementById(current+"-minus")
+        minus.innerHTML = "-"
+
+        //Set display for plus button
+        let plus :any = document.getElementById(current+"-plus")
+        plus.innerHTML = "+"
+
+        IDS.forEach(newId => {
+            if (current == newId) return null;
             
+            let xId = parseInt(current[0]);
+            let x = parseInt(newId[0]);
 
-            // Clicked Element
-            let outline: string = ".5rem solid blue";
-            let display: string = "grid"
-
-            Element(current, amount.toString(), display, outline, "blue")
-            let minus : any = document.getElementById(current+"-minus")
-            minus.innerHTML = "-"
-            let plus :any = document.getElementById(current+"-plus")
-            plus.innerHTML = "+"
-
-            console.log(current)
-            // Calculations
-            for (let x = 0; x < height; x++) {
-                for (let y = 0; y < width; y++) {   
-
-                    let newId = x+""+y
-                    if (current == newId) continue;
-                    // xId -> id={x-}
-                    let xId = parseInt(current[0]);
-                    // yId -> id={-y}
-                    let yId = parseInt(current[1]);
-                    let ratio = 1
-                    let am = 1
-
-                    // Same row of element
-                    if (x == xId) {
-                        // Element before selected one
-                        if (y < yId ) {
-                            ratio = (Math.pow(6, yId-y)) * amount
-                            am = amount
-
-                        }
-                        // Element after selected one
-                        if (y > yId) {
-                            am = Math.pow(3, y - yId)
-                            let tmp = am
-                            while (am < amount) {
-                                am += tmp
-                                ratio += 1 
-                            } 
-
-                        }
-                    }
-                    // Other rows
-                    else {
-
-                        // Element before selected one
-                        if (y < yId) {
-                            ratio = (Math.pow(6, (yId-(y-1)))) * amount
-                            am = amount
-
-                        }
-                        // Element after selected one
-                        else if (y > yId) {
-                            
-                            ratio = 2
-                            am = Math.pow(3, (y-1) - yId)
-                            let r_tmp = ratio
-                            let a_tmp = am
-                            while (am < amount) {
-                                am += a_tmp
-                                ratio += r_tmp
-                            }
-
-
-                        } 
-                        // Element in the same column
-                        else {
-                            ratio = 6 * amount
-                            am = amount
-                        }
-                    }
-                    let content = GenerateContent(ratio, am, newId)
-                    let max: any = document.getElementById(newId+"-max")?.innerHTML
-                    let color = "orange"
-                    if (ratio > max) color = "gray"
-                    Element(newId, content, display, "none", color)
-
-                }
+            let yId = parseInt(current[1]);
+            let y = parseInt(newId[1]);
+            
+            // Default values
+            let need = 1
+            let get = 1
+            
+            // Math settings
+            let base = 6
+            let power = yId -y
+            if (y > yId) {
+                base = 3
+                power = y - yId
             }
-        }
+
+
+            if (x == xId) {
+                // Element before selected one
+                if (y < yId ) {
+                    need = (Math.pow(base, power)) * amount
+                    get = amount
+                }
+                // Element after selected one
+                if (y > yId) {
+                    get = Math.pow(base, power)
+                    while (get < amount) {
+                        need += 1
+                        get +=  Math.pow(base, power)
+                    } 
+                }
+
+            }
+            // Other rows
+            else {
+                // Element before selected one
+                if (y <= yId) {
+                    need = (Math.pow(base, power+1)) * amount
+                    get = amount
+                }
+                // Element after selected one
+                else if (y > yId) {
+                    get = Math.pow(base, power-1)
+                    need = 2
+                    while (get < amount) {
+                        get += Math.pow(base, power-1)
+                        need += 2
+                    }
+                } 
+            }
+            
+            let content = GenerateContent(need, get, newId)
+            let max: any = document.getElementById(newId+"-max")?.innerHTML
+            
+            let color = "orange"
+            if (need > max) {
+                color = "gray"
+            }
+            Element(newId, content, display, "none", color)
+        })
 
     }
 
@@ -176,9 +207,9 @@ export default function MaterialDisplay(props: any) {
 
     const Clear = (event : any) => {
         if (event.target == BG.current) {
-            setCurrent("999")
-            setAmount(1)
-            setContent()
+            setCurrent("");
+            setAmount(1);
+            CleanBoard(IDS);
         }
     }
 
@@ -189,19 +220,21 @@ export default function MaterialDisplay(props: any) {
 
     return (
         <div ref={BG} onClick={Clear} className="mt-container">
-                {props.Mat.materials.map((row: any, xId: any) => (
-                    <div className="mt-row">
+                {props.Mat.materials.map((row: any, xId: any, key: any) => (
+                    <div className="mt-row"
+                    key={key+""+xId+"-"+Date.now()}
+                    >
                         <div className="mt-cat">
                             <div className="title">{props.Mat.categories[xId]}</div>
                             <div className="line"/>
                         </div>
                         <div className="mt-content">
-                        {row.map((col: any, yId: any) => (
+                        {row.map((col: any, yId: any, key2: any) => (
                                 <Slot 
                                     svg={yId} 
                                     id={xId+""+yId} 
-                                    w={width} 
-                                    h={height} 
+                                    w={Indexies[0]} 
+                                    h={Indexies[1]} 
                                     max={props.Mat.max[yId]}
                                     amount={amount}
                                     setAmount={setAmount}
@@ -209,6 +242,7 @@ export default function MaterialDisplay(props: any) {
                                     setCurrent={setCurrent}
                                     grade={Common.grades[yId]}
                                     matId={props.Mat.ids[xId][yId]}
+                                    key={key2+""+yId+"-"+Date.now()}
                                 >
                                     {col}
                                 </Slot>
