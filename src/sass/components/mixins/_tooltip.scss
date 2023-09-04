@@ -3,9 +3,9 @@
     
     .tt-#{$name} {
         background-color: $color;
+        border: 1px solid black;
         .tooltip-title::before {
             content: '#{map-get($map: $tooltips, $key: $name)}';
-    
         }
     }
 }
