@@ -10,8 +10,7 @@
         position: absolute;
         color: black;
         margin-top: .25rem;
-
-        border: 1px solid black;
+        border: none;
         border-radius: .5rem;
         padding: 1rem 2rem;
         width: 15rem;
@@ -40,8 +39,6 @@
             z-index: 3;
             opacity: 1;
         }
-        
-
     }
 
 }
